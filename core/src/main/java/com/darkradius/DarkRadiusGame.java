@@ -1,32 +1,33 @@
 package com.darkradius;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.darkradius.managers.GameManager;
+import com.darkradius.screens.MenuScreen;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class DarkRadiusGame extends ApplicationAdapter {
-    private SpriteBatch batch;
-    private Texture image;
+public class DarkRadiusGame extends Game {
+
+    public SpriteBatch   batch;
+    public ShapeRenderer shape;
+
+    public static final int W = 1200;
+    public static final int H = 600;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        image = new Texture("libgdx.png");
+        shape = new ShapeRenderer();
+        GameManager.getInstance().init(this);
+        setScreen(new MenuScreen(this));
     }
 
     @Override
-    public void render() {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        batch.begin();
-        batch.draw(image, 140, 210);
-        batch.end();
-    }
+    public void render() { super.render(); }
 
     @Override
     public void dispose() {
         batch.dispose();
-        image.dispose();
+        shape.dispose();
     }
 }
